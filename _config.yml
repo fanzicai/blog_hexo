@@ -4,17 +4,19 @@
 
 # Site
 title: fanzi.home@web
-subtitle: 凡尘过客
+subtitle: 凡尘博客
 description: 凡尘过客今他乡，子若布衣奈何天
-author: fanzi.home
-language: zh-CN
+author: fanzi.blog
+language:
+    - zh-CN
+    - en
 timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://fanzicai.github.com
 root: /
-permalink: :year/:month/:day/:title/
+permalink: :category/:year/:month/:day/:title.html
 permalink_defaults:
 
 # Directory
@@ -28,7 +30,7 @@ i18n_dir: :lang
 skip_render:
 
 # Writing
-new_post_name: :title.md # File name of new posts
+new_post_name: :category/:year:month:day-:title.md # File name of new posts
 default_layout: post
 titlecase: false # Transform title into titlecase
 external_link: true # Open external links in new tab
