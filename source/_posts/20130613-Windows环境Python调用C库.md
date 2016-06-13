@@ -1,10 +1,11 @@
 ---
 title: Windows环境Python调用C库
-date: 2016-06-13 10:24:51
+date: 2013-06-13 10:24:51
 tags:
         - Windows
         - Python
         - C
+        - 2013
 categories:
         - Program
 lang:

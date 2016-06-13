@@ -1,11 +1,12 @@
 ---
 title: lighttpd中pylons的SCGI发布
-date: 2016-06-13 09:40:57
+date: 2013-06-13 09:40:57
 tags:
         - LightTPD
         - SCGI
         - Pylons
         - Pyramid
+        - 2013
 categories: Program
 lang: zh-CN
 

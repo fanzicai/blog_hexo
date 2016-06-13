@@ -1,11 +1,12 @@
 ---
 title: Linux-x86环境Python调用C库
-date: 2016-06-13 10:38:54
+date: 2013-06-13 10:38:54
 tags:
         - Linux
         - Python
         - C
         - x86
+        - 2013
 categories:
         - Program
 lang:

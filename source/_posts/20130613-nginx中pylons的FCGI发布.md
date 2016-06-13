@@ -1,11 +1,12 @@
 ---
 title: nginx中pylons的FCGI发布
-date: 2016-06-13 10:05:26
+date: 2013-06-13 10:05:26
 tags:
         - Nginx
         - FCGI
         - Pylons
         - Pyramid
+        - 2013
 categories:
         - Program
 lang:

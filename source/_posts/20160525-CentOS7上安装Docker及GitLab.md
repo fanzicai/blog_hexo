@@ -1,10 +1,11 @@
 ---
 title: CentOS7上安装Docker及GitLab
 date: 2016-05-25 15:04:14
-tags: 
+tags:
     - CentOS
     - Docker
     - GitLab
+    - 2016
 categories: Program
 lang:
     - zh-CN
@@ -24,7 +25,7 @@ lang:
 
 - 安装版本
 
-    > [CentOS-7-x86_64-Everything-1511](https://www.centos.org/download/) 
+    > [CentOS-7-x86_64-Everything-1511](https://www.centos.org/download/)
 
 - 安装方式
 

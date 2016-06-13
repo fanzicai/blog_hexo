@@ -16,7 +16,7 @@ timezone: Asia/Shanghai
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
 url: http://fanzicai.github.com
 root: /
-permalink: :category/:year/:month/:day/:title.html
+permalink: :category/:year:month:day-:title.html
 permalink_defaults:
 
 # Directory
@@ -46,9 +46,9 @@ highlight:
   tab_replace:
 
 # Category & Tag
-default_category: program
+default_category: uncategorized
 category_map:
-  编程 : program
+  编程 : Program
 tag_map:
 
 # Date / Time format

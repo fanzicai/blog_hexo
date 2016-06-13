@@ -5,6 +5,7 @@ tags:
         - CentOS
         - Docker
         - Jenkins
+        - 2016
 categories: Program
 lang:
         - zh-CN

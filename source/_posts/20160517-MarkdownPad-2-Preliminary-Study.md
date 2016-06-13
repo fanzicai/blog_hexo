@@ -3,8 +3,10 @@ title: MarkdownPad 2 Preliminary Study
 date: 2016-05-17 16:41:23
 tags: 
         - GitHub
+        - 2016
 categories: Program
 lang: 
+        - en
 
 ---
 

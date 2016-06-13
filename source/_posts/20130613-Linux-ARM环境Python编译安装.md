@@ -1,10 +1,11 @@
 ---
 title: Linux-ARM环境Python编译安装
-date: 2016-06-13 10:42:52
+date: 2013-06-13 10:42:52
 tags:
         - Linux
         - Python
         - ARM
+        - 2013
 categories:
         - Program
 lang:

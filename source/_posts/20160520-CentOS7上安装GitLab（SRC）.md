@@ -1,7 +1,7 @@
 ---
 title: CentOS7上安装GitLab（SRC）
 date: 2016-05-20 13:31:11
-tags: 
+tags:
         - CentOS
         - GitLab
         - Git
@@ -12,6 +12,7 @@ tags:
         - Go
         - PostgreSQL
         - SELinux
+        - 2016
 categories: Program
 lang:
         - zh-CN
@@ -31,7 +32,7 @@ lang:
 
 - 安装版本
 
-    > [CentOS-7-x86_64-Everything-1511](https://www.centos.org/download/) 
+    > [CentOS-7-x86_64-Everything-1511](https://www.centos.org/download/)
 
 - 安装方式
 
@@ -96,7 +97,7 @@ Go源码安装，需要系统本身已有旧版本。
 yum -y install go
 cd /root
 wget https://storage.googleapis.com/golang/go1.5.3.linux-amd64.tar.gz
-tar xvf go1.5.3.linux-amd64.tar.gz -C /usr/local/ 
+tar xvf go1.5.3.linux-amd64.tar.gz -C /usr/local/
 ln -sf /usr/local/go/bin/{go,godoc,gofmt} /usr/bin/
 ```
 
@@ -231,7 +232,7 @@ sudo -u git -H vim config/unicorn.rb
 > 本文将8080改为9000
 
 - 其他配置
-``` 
+```
 sudo -u git -H cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb
 sudo -u git -H git config --global core.autocrlf input
 sudo -u git -H git config --global gc.auto 0
@@ -303,7 +304,7 @@ systemctl start gitlab
 ----------
 ## **15. 常用查询** ##
 - 确认应用状态
-``` 
+```
 sudo -u git -H bundle exec rake gitlab:env:info RAILS_ENV=production
 ```
 

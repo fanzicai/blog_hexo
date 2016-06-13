@@ -4,6 +4,7 @@ date: 2016-05-25 16:19:37
 tags:
         - CentOS
         - Docker
+        - 2016
 categories: Program
 lang:
         - zh-CN

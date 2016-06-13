@@ -7,6 +7,7 @@ tags:
         - Git
         - Redis
         - Ruby on Rails
+        - 2016
 categories: Program
 lang:
         - zh-CN

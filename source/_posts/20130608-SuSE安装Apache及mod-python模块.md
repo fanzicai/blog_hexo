@@ -1,10 +1,11 @@
 ---
 title: SuSE安装Apache及mod_python模块
-date: 2016-06-08 16:23:25
+date: 2013-06-08 16:23:25
 tags:
         - SuSE
         - Apache
         - Python
+        - 2013
 categories:
         - Program
 lang:
