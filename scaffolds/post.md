@@ -2,7 +2,13 @@
 title: {{ title }}
 date: {{ date }}
 tags:
-categories: 
-lang: 
+    - 
+categories:
+    - Program
+lang:
+    - zh-CN
 
 ---
+
+
+<!-- more -->
