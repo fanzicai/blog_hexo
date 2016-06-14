@@ -79,3 +79,4 @@ http://*.*.*.*:8080
 > - gitlab plugin
 > - gitlab merge request builder
 > - gitlab logo plugin
+> - Gitlab Authentication plugin
