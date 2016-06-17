@@ -65,7 +65,9 @@ docker start jenkins
 docker stop jenkins
 ```
 - 访问
-```
+> 建议采用IE内核的浏览器
+> 在chrome浏览器下，配置任务时容易出错
+> ```
 http://*.*.*.*:8080
 ```
 
@@ -80,3 +82,21 @@ http://*.*.*.*:8080
 > - gitlab merge request builder
 > - gitlab logo plugin
 > - Gitlab Authentication plugin
+
+
+----------
+## **4. 访问Gitlab** ##
+> 采用git clone git@host_gitlab:usr_name/repo_name.git
+> 需先在jenkins容器中生成私钥
+> ```
+cd /var/jenkins_home
+ssh-keygen -t rsa -C "fanzicai@yahoo.com" -f /var/jenkins_home/.ssh/id_rsa
+```
+> 把id_rsa.pub的公钥内容，配置到gitlab服务器上
+> 同时，在jenkins构建工程设置中私钥采用
+> From the Jenkins master ~/.ssh
+
+ 
+
+----------
+ 
