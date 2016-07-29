@@ -23,7 +23,11 @@ lang:
 - Docker MySQL
 Oracle官方已提供MySQL的[Docker Image](https://hub.docker.com/r/mysql/mysql-server/)。
 ```
-docker run --restart always --name mysql -e MYSQL_ROOT_PASSWORD=123 -d mysql/mysql-server:latest
+docker run -it --detach -p 192.168.1.80:3306:3306 -p 192.168.1.80:33060:33060 --restart always  -e MYSQL_ROOT_PASSWORD=123 -v /root/mysql:/var/lib/mysql --name mysql mysql/mysql-server --character-set-server=utf8 --collation-server=utf8_general_ci
+```
+> docker -v 权限
+> ```
+chcon -Rt svirt_sandbox_file_t /root/mysql
 ```
 > 进入mysql控制台
 ```
