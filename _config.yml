@@ -74,5 +74,5 @@ theme: athene
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: git@github.com:fanzicai/fanzicai.github.io.git
-  branch: master
+  repository: git@github.com:fanzicai/blog_hexo.git
+  branch: gh-pages
