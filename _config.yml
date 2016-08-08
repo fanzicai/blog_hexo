@@ -14,8 +14,8 @@ timezone: Asia/Shanghai
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://fanzicai.github.com
-root: /
+url: http://www.fanzicai.com/blog_hexo
+root: /blog_hexo/
 permalink: :category/:year:month:day-:title.html
 permalink_defaults:
 
