@@ -7,9 +7,7 @@ title: fanzi.home@web
 subtitle: 凡尘博客
 description: 凡尘过客今他乡，子若布衣奈何天
 author: fanzi.cai
-language:
-    - zh-CN
-    - en
+language: zh-CN
 timezone: Asia/Shanghai
 
 # URL
@@ -48,7 +46,6 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
-  编程 : Program
 tag_map:
 
 # Date / Time format
@@ -65,10 +62,22 @@ pagination_dir: page
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
+Plugins:
+  - hexo-generator-sitemap
 ## Themes: https://hexo.io/themes/
 #theme: landscape
 #theme: light
 theme: athene
+sitemap:
+  path: sitemap.xml
+feed:
+  type: atom
+  path: atom.xml
+  #limit: 20
+  hub:
+search:
+  path: search.xml
+  field: all
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html

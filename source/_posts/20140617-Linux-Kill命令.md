@@ -6,6 +6,7 @@ tags:
         - Linux
         - Shell
 categories: Program
+comments: false
 lang: zh-CN
 
 ---

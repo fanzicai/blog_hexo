@@ -14,6 +14,7 @@ tags:
         - SELinux
         - 2016
 categories: Program
+comments: false
 lang:
         - zh-CN
 

@@ -9,6 +9,7 @@ tags:
         - AMQP
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

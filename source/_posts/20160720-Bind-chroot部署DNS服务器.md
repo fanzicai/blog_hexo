@@ -8,6 +8,7 @@ tags:
         - Chroot
         - DNS
 categories: Program
+comments: false
 lang:
         - zh-CN
 ---
@@ -35,7 +36,7 @@ yum -y install bind-utils
 
 - named.conf
 ```
-cp -y /etc/named.conf /var/named/chroot/etc/
+cp -f /etc/named.conf /var/named/chroot/etc/
 ```
 > ```
 options {

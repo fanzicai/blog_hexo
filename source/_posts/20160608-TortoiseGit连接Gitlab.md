@@ -3,11 +3,12 @@ title: TortoiseGit连接Gitlab
 date: 2016-06-08 16:03:36
 tags:
         - Git
-        - Gitlab
+        - GitLab
         - TortoiseGit
         - 2016
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

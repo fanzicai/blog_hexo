@@ -8,6 +8,7 @@ tags:
         - MySQL
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

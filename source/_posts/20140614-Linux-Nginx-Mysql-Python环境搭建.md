@@ -11,6 +11,7 @@ tags:
         - SuSE
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

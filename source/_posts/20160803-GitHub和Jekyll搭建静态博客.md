@@ -8,6 +8,7 @@ tags:
         - Ruby
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

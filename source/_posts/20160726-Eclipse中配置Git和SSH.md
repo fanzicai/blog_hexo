@@ -8,6 +8,7 @@ tags:
         - SSH
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

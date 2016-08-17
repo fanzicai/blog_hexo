@@ -6,6 +6,7 @@ tags:
         - GitHub
 categories:
         - Program
+comments: false
 lang:
         - zh-CN
 

@@ -7,6 +7,7 @@ tags:
         - Jenkins
         - 2016
 categories: Program
+comments: false
 lang:
         - zh-CN
 
@@ -96,7 +97,5 @@ ssh-keygen -t rsa -C "fanzicai@yahoo.com" -f /var/jenkins_home/.ssh/id_rsa
 > 同时，在jenkins构建工程设置中私钥采用
 > From the Jenkins master ~/.ssh
 
- 
-
-----------
+ ----------
  

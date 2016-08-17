@@ -1,10 +1,13 @@
 ---
 title: {{ title }}
 date: {{ date }}
-tags: 
+comments: false
+meta:
+  - name="robots";content="noindex, follow"
+  - name="";value="";enabled=false
+tags:
 categories:
 lang:
-
 ---
 
 

@@ -8,7 +8,9 @@ tags:
         - Pyramid
         - 2013
 categories: Program
-lang: zh-CN
+comments: false
+lang:
+        - zh-CN
 
 ---
 [Lighttpd](https://www.lighttpd.net/) 是一个德国人领导的开源Web服务器软件，其根本的目的是提供一个专门针对高性能网站，安全、快速、兼容性好并且灵活的web server环境。具有非常低的内存开销、cpu占用率低、效能好以及丰富的模块等特点。

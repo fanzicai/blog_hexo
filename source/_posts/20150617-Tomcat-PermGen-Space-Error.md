@@ -6,7 +6,10 @@ tags:
         - Tomcat
 categories:
         - Program
-lang: zh-CN
+comments: false
+lang: 
+        - zh-CN
+
 ---
 PermGen space的全称是Permanent Generation space,是指内存的永久保存区域，这块内存主要是被JVM存放Class和Meta信息的。
 
