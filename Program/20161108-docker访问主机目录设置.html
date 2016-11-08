@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Tag: Jekyll | fanzi.home@web</title>
+  <title>docker访问主机目录设置 | fanzi.home@web</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="凡尘过客今他乡，子若布衣奈何天">
-<meta property="og:type" content="website">
-<meta property="og:title" content="fanzi.home@web">
-<meta property="og:url" content="http://www.fanzicai.com/tags/Jekyll/index.html">
+  <meta name="description" content="Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker访问主机目录设置">
+<meta property="og:url" content="http://www.fanzicai.com/Program/20161108-docker访问主机目录设置.html">
 <meta property="og:site_name" content="fanzi.home@web">
-<meta property="og:description" content="凡尘过客今他乡，子若布衣奈何天">
+<meta property="og:description" content="Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。">
+<meta property="og:updated_time" content="2016-11-08T06:37:49.388Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="fanzi.home@web">
-<meta name="twitter:description" content="凡尘过客今他乡，子若布衣奈何天">
+<meta name="twitter:title" content="docker访问主机目录设置">
+<meta name="twitter:description" content="Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。">
   
     <link rel="alternative" href="/blog_hexo/atom.xml" title="fanzi.home@web" type="application/atom+xml">
   
@@ -306,58 +307,98 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-docker访问主机目录设置" class="article article-type-post" itemscope itemprop="blogPost">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog_hexo/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog_hexo/Program/20160803-GitHub和Jekyll搭建静态博客.html" class="archive-article-date">
-  	<time datetime="2016-08-03T09:07:27.000Z" itemprop="datePublished">8月 3日</time>
+    <div class="article-meta">
+      <a href="/blog_hexo/Program/20161108-docker访问主机目录设置.html" class="article-date">
+  	<time datetime="2016-11-08T03:27:08.000Z" itemprop="datePublished">2016-11-08</time>
 </a>
-        </div>
-    	 
+    </div>
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog_hexo/Program/20160803-GitHub和Jekyll搭建静态博客.html">GitHub和Jekyll搭建静态博客</a>
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      docker访问主机目录设置
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+      </header>
+      
+      <div class="article-info article-info-post">
+        
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/2016/">2016</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/GitHub/">GitHub</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/Jekyll/">Jekyll</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/Ruby/">Ruby</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/2016/">2016</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/Docker/">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog_hexo/tags/SELinux/">SELinux</a></li></ul>
 	</div>
 
-          
+        
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/blog_hexo/categories/Program/">Program</a>
 	</div>
 
 
-        </div>
         <div class="clearfix"></div>
-    </header>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。</p>
+<a id="more"></a>
+<blockquote>
+<p>配置方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcon -Rt svirt_sandbox_file_t /my/own/datadir</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<hr>
+
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/blog_hexo/Program/20161108-docker国内镜像.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">docker国内镜像</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-  
-  
-    </div></section>
-  
 
-    
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
 
 </div>
       <footer id="footer">
@@ -384,9 +425,9 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
     root_path: "/blog_hexo/",
