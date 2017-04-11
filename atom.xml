@@ -94,9 +94,9 @@
     
       <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
     
-      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
-    
       <category term="SELinux" scheme="http://www.fanzicai.com/tags/SELinux/"/>
+    
+      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
     
   </entry>
   
@@ -171,9 +171,9 @@
       <category term="Program" scheme="http://www.fanzicai.com/categories/Program/"/>
     
     
-      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
-    
       <category term="MySQL" scheme="http://www.fanzicai.com/tags/MySQL/"/>
+    
+      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
     
       <category term="Firewall" scheme="http://www.fanzicai.com/tags/Firewall/"/>
     
@@ -247,9 +247,9 @@
       <category term="Program" scheme="http://www.fanzicai.com/categories/Program/"/>
     
     
-      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
-    
       <category term="Tomcat" scheme="http://www.fanzicai.com/tags/Tomcat/"/>
+    
+      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
     
       <category term="SSL" scheme="http://www.fanzicai.com/tags/SSL/"/>
     
@@ -956,15 +956,15 @@ Key Management    #如有现成私钥，则导入，如无则创建，同时把�
       <category term="Program" scheme="http://www.fanzicai.com/categories/Program/"/>
     
     
-      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
-    
       <category term="MySQL" scheme="http://www.fanzicai.com/tags/MySQL/"/>
+    
+      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
     
       <category term="CentOS" scheme="http://www.fanzicai.com/tags/CentOS/"/>
     
-      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
-    
       <category term="GitLab" scheme="http://www.fanzicai.com/tags/GitLab/"/>
+    
+      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
     
   </entry>
   
@@ -1159,15 +1159,15 @@ Key Management    #如有现成私钥，则导入，如无则创建，同时把�
       <category term="Program" scheme="http://www.fanzicai.com/categories/Program/"/>
     
     
-      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
-    
       <category term="MySQL" scheme="http://www.fanzicai.com/tags/MySQL/"/>
+    
+      <category term="2016" scheme="http://www.fanzicai.com/tags/2016/"/>
     
       <category term="CentOS" scheme="http://www.fanzicai.com/tags/CentOS/"/>
     
-      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
-    
       <category term="GitLab" scheme="http://www.fanzicai.com/tags/GitLab/"/>
+    
+      <category term="Docker" scheme="http://www.fanzicai.com/tags/Docker/"/>
     
   </entry>
   
