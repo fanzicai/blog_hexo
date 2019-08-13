@@ -57,7 +57,7 @@ systemctl start docker
 采用[docker jenkins](https://hub.docker.com/_/jenkins/)
 - 安装
 ```
-docker run --detach --name jenkins --restart always -p 8080:8080 -p 50000:50000 jenkins
+docker run --detach --name jenkins --restart always -v /root/docker-jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 jenkins
 ```
 > 下载image及创建名为jenkis的容器并运行
 > 启动、停止容器
