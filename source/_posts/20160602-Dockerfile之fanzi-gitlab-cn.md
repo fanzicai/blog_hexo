@@ -1,7 +1,7 @@
 ---
 title: Dockerfile之fanzi/gitlab-cn
 date: 2016-06-02 09:02:37
-tags: 
+tags:
         - CentOS
         - Docker
         - GitLab
@@ -23,8 +23,13 @@ Dockerfile是创建docker image的一种常用方式。本文采用dockerfile创
 
 - Docker MySQL
 Oracle官方已提供MySQL的[Docker Image](https://hub.docker.com/r/mysql/mysql-server/)。
+> docker -v 权限
+> ```
+chcon -Rt svirt_sandbox_file_t /root/docker-mysql-data
 ```
-docker run --restart always --name mysql -e MYSQL_ROOT_PASSWORD=123 -v /root/docker-mysql-data:/var/lib/mysql -p 192.168.1.80:3306:3306 -p 192.168.1.80:33060:33060 -d mysql/mysql-server:latest --character-set-server=utf8 --collation-server=utf8_general_ci 
+> 创建
+```
+docker run --restart always --name mysql -e MYSQL_ROOT_PASSWORD=123 -v /root/docker-mysql-data:/var/lib/mysql -p 3306:3306 -p 33060:33060 -d mysql/mysql-server:5.7 --character-set-server=utf8 --collation-server=utf8_general_ci
 ```
 > 进入mysql控制台
 ```
@@ -194,9 +199,13 @@ docker build --rm=true -t fanzi/gitlab-cn .
 ```
 ----------
 ## **4. Image USE** ##
+- docker -v 权限
+> ```
+chcon -Rt svirt_sandbox_file_t /root/docker-gitlab-bak/backups
+```
 - 创建容器
 ```
-docker run -it --detach --restart always  -v /root/docker-gitlab-bak/backups:/home/git/gitlab/tmp/backups --link mysql:mysql -p 192.168.1.10:80:80 -p 192.168.1.10:22:22 --name gitlab fanzi/gitlab-cn
+docker run -it --detach --restart always  -v /root/docker-gitlab-bak/backups:/home/git/gitlab/tmp/backups --link mysql:mysql -p 80:80 -p 22:22 --name gitlab fanzi/gitlab-cn
 ```
 - 初始化数据库
 > 确保mysql容器运行，只在创建容器后运行一次
