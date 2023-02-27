@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>fanzi.home@web</title>
+  
+  <subtitle>凡尘博客</subtitle>
+  <link href="/blog_hexo/atom.xml" rel="self"/>
+  
+  <link href="http://my.fanzicai.com/"/>
+  <updated>2023-02-23T09:21:06.754Z</updated>
+  <id>http://my.fanzicai.com/</id>
+  
+  <author>
+    <name>fanzi.cai</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>docker容器动态扩容</title>
+    <link href="http://my.fanzicai.com/Program/20190808-docker%E5%AE%B9%E5%99%A8%E5%8A%A8%E6%80%81%E6%89%A9%E5%AE%B9.html"/>
+    <id>http://my.fanzicai.com/Program/20190808-docker容器动态扩容.html</id>
+    <published>2019-08-08T03:05:59.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>Docker采用DeviceMapper作为存储驱动时，一般默认容器大小不超过10G。</p><p> 本文适用于使用DeviceMapper的Docker版本，不适于与其他如Overlay2的版本。<br><a id="more"></a></p><blockquote><p>先获取容器对应的磁盘映射空间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-253:0-4294967424-e8e2398e70742a18a0affbc894dbc853432b7c0ef1db4a86e2a070ea0b57c879</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>获取扇区信息<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dmsetup table docker-253:0-4294967424-e8e2398e70742a18a0affbc894dbc853432b7c0ef1db4a86e2a070ea0b57c879</span><br><span class="line">0 10971520  thin  253:3 32</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>编写脚本gitlab_resume.sh<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">echo 0 104857600 thin  253:3 32 | dmsetup load docker-253:0-4294967424-e8e2398e70742a18a0affbc894dbc853432b7c0ef1db4a86e2a070ea0b57c879</span><br><span class="line">dmsetup resume docker-253:0-4294967424-e8e2398e70742a18a0affbc894dbc853432b7c0ef1db4a86e2a070ea0b57c879</span><br></pre></td></tr></table></figure></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker采用DeviceMapper作为存储驱动时，一般默认容器大小不超过10G。&lt;/p&gt;
+&lt;p&gt; 本文适用于使用DeviceMapper的Docker版本，不适于与其他如Overlay2的版本。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="http://my.fanzicai.com/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Win7-x64环境虚拟机安装OS/X-10.11</title>
+    <link href="http://my.fanzicai.com/Program/20170215-Win7-x64%E7%8E%AF%E5%A2%83%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%89%E8%A3%85OS-X-10-11.html"/>
+    <id>http://my.fanzicai.com/Program/20170215-Win7-x64环境虚拟机安装OS-X-10-11.html</id>
+    <published>2017-02-15T08:33:07.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述在Windows7 64系统上的VMware虚拟环境中安装OS/X的10.11操作系统。</p><a id="more"></a><h2 id="1-工具"><a href="#1-工具" class="headerlink" title="1.工具"></a><strong>1.工具</strong></h2><ul><li>VMware 12</li><li>unlocker 207</li><li>cdr格式的OS/X安装包</li></ul><hr><h2 id="2-关键步骤"><a href="#2-关键步骤" class="headerlink" title="2.关键步骤"></a><strong>2.关键步骤</strong></h2><ul><li><p>unlocker 207</p><blockquote><p>安装前，确保VMware已关闭<br>采用“管理员”执行.cmd文件<br>安装成功，在VMware的新建列表中会出现Apple OS选项</p></blockquote></li><li><p>新建虚拟机</p><blockquote><p>选用EFI，非BIOS<br>内存不少于2048，建议4096<br>硬盘不少于40G，建议80，可选用SATA，不要求SCSI<br>直接选择cdr文件<br>USB设备设置时，勾选“显示所有USB设备”，并采用USB2.0<br>开启虚拟机之前，编辑vmx文件，添加一行配置</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">smc.version = 0</span><br></pre></td></tr></table></figure></blockquote></li><li><p>系统安装</p><blockquote><p>安装时，需先进行磁盘初始化，在“实用工具”-“硬盘工具”中进行<br>键盘布局，选择“美国（PC）”</p></blockquote></li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述在Windows7 64系统上的VMware虚拟环境中安装OS/X的10.11操作系统。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2017" scheme="http://my.fanzicai.com/tags/2017/"/>
+    
+      <category term="VMware" scheme="http://my.fanzicai.com/tags/VMware/"/>
+    
+      <category term="OS/X" scheme="http://my.fanzicai.com/tags/OS-X/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker访问主机目录设置</title>
+    <link href="http://my.fanzicai.com/Program/20161108-docker%E8%AE%BF%E9%97%AE%E4%B8%BB%E6%9C%BA%E7%9B%AE%E5%BD%95%E8%AE%BE%E7%BD%AE.html"/>
+    <id>http://my.fanzicai.com/Program/20161108-docker访问主机目录设置.html</id>
+    <published>2016-11-08T03:27:08.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。</p><a id="more"></a><blockquote><p>配置方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcon -Rt svirt_sandbox_file_t /my/own/datadir</span><br></pre></td></tr></table></figure></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Docker映射宿主机目录时，须配置该目录权限，否则在SELinux下无法访问。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Docker" scheme="http://my.fanzicai.com/tags/Docker/"/>
+    
+      <category term="SELinux" scheme="http://my.fanzicai.com/tags/SELinux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>docker国内镜像</title>
+    <link href="http://my.fanzicai.com/Program/20161108-docker%E5%9B%BD%E5%86%85%E9%95%9C%E5%83%8F.html"/>
+    <id>http://my.fanzicai.com/Program/20161108-docker国内镜像.html</id>
+    <published>2016-11-08T03:05:59.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>目前因为某些原因，docker pull采用默认镜像地址时非常慢，故建议选用国内镜像。</p><a id="more"></a><blockquote><p>本文选用了比较方便的阿里云镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://eoomcem8.mirror.aliyuncs.com</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>在CentOS7中，修改文件/etc/sysconfig/config，option增加下述内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--registry-mirror=https://eoomcem8.mirror.aliyuncs.com</span><br></pre></td></tr></table></figure></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;目前因为某些原因，docker pull采用默认镜像地址时非常慢，故建议选用国内镜像。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="http://my.fanzicai.com/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS中MySQL远程访问</title>
+    <link href="http://my.fanzicai.com/Program/20161101-CentOS%E4%B8%ADMySQL%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE.html"/>
+    <id>http://my.fanzicai.com/Program/20161101-CentOS中MySQL远程访问.html</id>
+    <published>2016-11-01T02:50:52.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述如何在CentOS7中允许MySQL的端口。</p><a id="more"></a><h2 id="1、方法一"><a href="#1、方法一" class="headerlink" title="1、方法一"></a><strong>1、方法一</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --add-service=mysql</span><br></pre></td></tr></table></figure><blockquote><p>永久改变<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --add-service=mysql</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="2、方法二"><a href="#2、方法二" class="headerlink" title="2、方法二"></a><strong>2、方法二</strong></h2><p>采用iptables，前提是要先安装iptables相关</p><blockquote><p>相关命令有<br>添加端口3306<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>查看状态<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -L -n  //或者 service iptables status</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>删除端口<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">iptables -D INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>永久保存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service iptables save</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p> 或者<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/init.d/iptables save</span><br></pre></td></tr></table></figure></p></blockquote><p>或者编辑配置文件</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/iptables //在该文件中加入下面这条规则也是可以生效的  </span><br><span class="line">-A INPUT -p tcp -m state --state NEW -m tcp --dport 3306 -j ACCEPT</span><br></pre></td></tr></table></figure></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述如何在CentOS7中允许MySQL的端口。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="MySQL" scheme="http://my.fanzicai.com/tags/MySQL/"/>
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Firewall" scheme="http://my.fanzicai.com/tags/Firewall/"/>
+    
+      <category term="Iptables" scheme="http://my.fanzicai.com/tags/Iptables/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>openssl证书格式转换</title>
+    <link href="http://my.fanzicai.com/Program/20161101-openssl%E8%AF%81%E4%B9%A6%E6%A0%BC%E5%BC%8F%E8%BD%AC%E6%8D%A2.html"/>
+    <id>http://my.fanzicai.com/Program/20161101-openssl证书格式转换.html</id>
+    <published>2016-11-01T01:08:00.000Z</published>
+    <updated>2023-02-23T09:21:06.754Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述ssl key的格式转换方法。</p><a id="more"></a><h2 id="1、基本命令"><a href="#1、基本命令" class="headerlink" title="1、基本命令"></a><strong>1、基本命令</strong></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl x509 -in cert.pem -inform PEM -out cert.der -outform DER</span><br></pre></td></tr></table></figure><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述ssl key的格式转换方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="OpenSSL" scheme="http://my.fanzicai.com/tags/OpenSSL/"/>
+    
+      <category term="X509" scheme="http://my.fanzicai.com/tags/X509/"/>
+    
+      <category term="Der" scheme="http://my.fanzicai.com/tags/Der/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat配置https</title>
+    <link href="http://my.fanzicai.com/Program/20161031-Tomcat%E9%85%8D%E7%BD%AEhttps.html"/>
+    <id>http://my.fanzicai.com/Program/20161031-Tomcat配置https.html</id>
+    <published>2016-10-31T06:48:44.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述Tomcat配置https连接的方式之一。</p><a id="more"></a><h2 id="1、Key生成"><a href="#1、Key生成" class="headerlink" title="1、Key生成"></a><strong>1、Key生成</strong></h2><ul><li>生成ssh key<blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$JAVA_HOME/bin/keytool -genkey -alias tomcat -keyalg RSA -keystore /path/to/my/keystore</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr><h2 id="2、配置"><a href="#2、配置" class="headerlink" title="2、配置"></a><strong>2、配置</strong></h2><ul><li>/conf/server.xml<blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;Connector port=&quot;8443&quot; protocol=&quot;org.apache.coyote.http11.Http11NioProtocol&quot;</span><br><span class="line">              maxThreads=&quot;150&quot; SSLEnabled=&quot;true&quot; scheme=&quot;https&quot; secure=&quot;true&quot;</span><br><span class="line">              keystoreFile=&quot;$&#123;user.home&#125;/.keystore&quot; keystorePass=&quot;changeit&quot;</span><br><span class="line">              clientAuth=&quot;false&quot; sslProtocol=&quot;TLS&quot; /&gt;</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述Tomcat配置https连接的方式之一。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Tomcat" scheme="http://my.fanzicai.com/tags/Tomcat/"/>
+    
+      <category term="SSL" scheme="http://my.fanzicai.com/tags/SSL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GitLab自动备份by crond</title>
+    <link href="http://my.fanzicai.com/Program/20160809-GitLab%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BDby-crond.html"/>
+    <id>http://my.fanzicai.com/Program/20160809-GitLab自动备份by-crond.html</id>
+    <published>2016-08-09T05:54:08.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文涉及的GitLab为中文版，采用<a href="https://hub.docker.com/r/fanzi/gitlab-cn/" target="_blank" rel="noopener">fanzi/gitlab-cn</a>创建。<br>可参见<a href="http://www.fanzicai.com/blog_hexo/Program/20160602-Dockerfile%E4%B9%8Bfanzi-gitlab-cn.html" target="_blank" rel="noopener">Dockerfile之fanzi/gitlab-cn</a></p><a id="more"></a><h2 id="1-备份"><a href="#1-备份" class="headerlink" title="1. 备份"></a><strong>1. 备份</strong></h2><ul><li><p>在旧GitLab服务器上执行</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/git/gitlab</span><br><span class="line">bundle exec rake gitlab:backup:create RAILS_ENV=production</span><br></pre></td></tr></table></figure></blockquote></li><li><p>备份文件所在目录</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/git/gitlab/tmp/backups/</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr><h2 id="2-还原"><a href="#2-还原" class="headerlink" title="2. 还原"></a><strong>2. 还原</strong></h2><blockquote><p>将原GitLab服务器的备份文件（*.tar）拷贝到新GitLab服务器的备份目录（同旧服务器）<br>重要！修改脚本文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /home/git/gitlab/lib/tasks/gitlab/db.rask</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>将<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tables.each &#123; |t| connection.execute(&quot;DROP TABLE IF EXISTS #&#123;t&#125; CASCADE&quot;) &#125;</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>改为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tables.each &#123; |t| connection.execute(&quot;DROP TABLE IF EXISTS `#&#123;t&#125;` CASCADE&quot;) &#125;</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>还原命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /home/git/gitlab</span><br><span class="line">sudo -u git -H bundle exec rake gitlab:backup:restore RAILS_ENV=production</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>执行还原命令之前，须执行初始化并关闭gitlab服务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it gitlab-new /bin/bash -c /home/git/gitlab-init.sh</span><br><span class="line">/etc/init.d/gitlab stop</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="3-附录"><a href="#3-附录" class="headerlink" title="3. 附录"></a><strong>3. 附录</strong></h2><ul><li>docker mysql<blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart always --name mysql-new -e MYSQL_ROOT_PASSWORD=123 -d mysql/mysql-server:latest --character-set-server=utf8 --collation-server=utf8_general_ci</span><br></pre></td></tr></table></figure></blockquote></li></ul><blockquote><p>进入mysql控制台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql-new /bin/bash</span><br><span class="line">mysql -uroot -p123</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>创建git用户及database，本文git用户密码设置为git<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;git&apos;@&apos;%&apos; IDENTIFIED BY &apos;git&apos;;</span><br><span class="line">CREATE DATABASE IF NOT EXISTS `gitlabhq_production` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;</span><br><span class="line">GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER, LOCK TABLES ON `gitlabhq_production`.* TO &apos;git&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br><span class="line">\q</span><br></pre></td></tr></table></figure></p></blockquote><ul><li>docker gitlab<blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --detach --restart always --link mysql-new:mysql -p 80:80 -p 22:22 --name gitlab-new fanzi/gitlab-cn</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr><h2 id="4-自动化"><a href="#4-自动化" class="headerlink" title="4. 自动化"></a><strong>4. 自动化</strong></h2><ul><li><p>docker gitlab backup脚本</p><blockquote><p>/home/git/gitlab-backup.sh</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line">cd /home/git/gitlab</span><br><span class="line">bundle exec rake gitlab:backup:create RAILS_ENV=production</span><br></pre></td></tr></table></figure></blockquote></li><li><p>crond配置文件</p><blockquote><p>/root/docker-gitlab-bak/gitlab.cron</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">SHELL=/bin/bash</span><br><span class="line">PATH=/sbin:/bin:/usr/sbin:/usr/bin</span><br><span class="line">MAILTO=root</span><br><span class="line"># For details see man 4 crontabs</span><br><span class="line"># Example of job definition:</span><br><span class="line"># .---------------- minute (0 - 59)</span><br><span class="line"># |  .------------- hour (0 - 23)</span><br><span class="line"># |  |  .---------- day of month (1 - 31)</span><br><span class="line"># |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...</span><br><span class="line"># |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span><br><span class="line"># |  |  |  |  |</span><br><span class="line"># *  *  *  *  * user-name  command to be executed</span><br><span class="line">0 0 * * * docker exec -it gitlab /bin/bash /home/git/gitlab-backup.sh</span><br><span class="line">10 0 * * * docker cp gitlab:/home/git/gitlab/tmp/backups /root/docker-gitlab-bak/</span><br></pre></td></tr></table></figure></blockquote></li><li><p>crond服务</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">crontab -s /root/docker-gitlab-bak/gitlab.cron</span><br><span class="line">systemctl enable crond</span><br><span class="line">systemctl start crond</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr><h2 id="5-其他方式"><a href="#5-其他方式" class="headerlink" title="5. 其他方式"></a><strong>5. 其他方式</strong></h2><blockquote><p>主要指采用安装包安装的gitlab<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/opt/gitlab/bin/gitlab-rake gitlab:backup:create</span><br><span class="line">gitlab-rake gitlab:backup:restore BACKUP=*******  #编号</span><br></pre></td></tr></table></figure></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文涉及的GitLab为中文版，采用&lt;a href=&quot;https://hub.docker.com/r/fanzi/gitlab-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;fanzi/gitlab-cn&lt;/a&gt;创建。&lt;br&gt;可参见&lt;a href=&quot;http://www.fanzicai.com/blog_hexo/Program/20160602-Dockerfile%E4%B9%8Bfanzi-gitlab-cn.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Dockerfile之fanzi/gitlab-cn&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="GitLab" scheme="http://my.fanzicai.com/tags/GitLab/"/>
+    
+      <category term="Crond" scheme="http://my.fanzicai.com/tags/Crond/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>GitHub和Jekyll搭建静态博客</title>
+    <link href="http://my.fanzicai.com/Program/20160803-GitHub%E5%92%8CJekyll%E6%90%AD%E5%BB%BA%E9%9D%99%E6%80%81%E5%8D%9A%E5%AE%A2.html"/>
+    <id>http://my.fanzicai.com/Program/20160803-GitHub和Jekyll搭建静态博客.html</id>
+    <published>2016-08-03T09:07:27.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>根据官方教程进行搭建，<a href="https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/" target="_blank" rel="noopener">https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/</a>。</p><a id="more"></a><h2 id="1-官方教程"><a href="#1-官方教程" class="headerlink" title="1. 官方教程"></a><strong>1. 官方教程</strong></h2><blockquote><p>根据官方教程<br>安装ruby、bundle<br>创建blog_jekyll目录<br>初始化jekyll工程</p></blockquote><hr><h2 id="2-Jekyll配置"><a href="#2-Jekyll配置" class="headerlink" title="2. Jekyll配置"></a><strong>2. Jekyll配置</strong></h2><blockquote><p>_config.yml<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">title: fanzi.home@web</span><br><span class="line">email: fanzicai@yahoo.com</span><br><span class="line">description: &gt; # this means to ignore newlines until &quot;baseurl:&quot;</span><br><span class="line">  nothing to say.</span><br><span class="line">baseurl: &quot;/blog_jekyll&quot; # the subpath of your site, e.g. /blog</span><br><span class="line">url: &quot;https://www.fanzicai.com&quot; # the base hostname &amp; protocol for your site</span><br><span class="line">#twitter_username: jekyllrb</span><br><span class="line">github_username:  fanzicai</span><br><span class="line"># Build settings</span><br><span class="line">markdown: kramdown</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="3-GitHub配置"><a href="#3-GitHub配置" class="headerlink" title="3. GitHub配置"></a><strong>3. GitHub配置</strong></h2><blockquote><p>repo<br>blog_jekyll<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --set-upstream origin gh-pages</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>注意，git推送时，需把.gitconfig中的_site删除</p></blockquote><blockquote><p>访问<a href="https://fanzicai.github.io/blog_jekyll" target="_blank" rel="noopener">https://fanzicai.github.io/blog_jekyll</a></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;根据官方教程进行搭建，&lt;a href=&quot;https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://help.github.com/articles/setting-up-your-github-pages-site-locally-with-jekyll/&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="GitHub" scheme="http://my.fanzicai.com/tags/GitHub/"/>
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Jekyll" scheme="http://my.fanzicai.com/tags/Jekyll/"/>
+    
+      <category term="Ruby" scheme="http://my.fanzicai.com/tags/Ruby/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS安装Erlang和RabbitMQ</title>
+    <link href="http://my.fanzicai.com/Program/20160802-CentOS%E5%AE%89%E8%A3%85Erlang%E5%92%8CRabbitMQ.html"/>
+    <id>http://my.fanzicai.com/Program/20160802-CentOS安装Erlang和RabbitMQ.html</id>
+    <published>2016-08-02T08:27:15.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述esl-erlang、esl-erlang-compat、rabbitmq-server的安装。</p><a id="more"></a><p>AMQP, Advanced Message Queuing Protocol，高级消息队列协议。</p><h2 id="1-安装Erlang"><a href="#1-安装Erlang" class="headerlink" title="1. 安装Erlang"></a><strong>1. 安装Erlang</strong></h2><ul><li><p>安装epel-release</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm</span><br></pre></td></tr></table></figure></blockquote></li><li><p>安装Erlang</p><blockquote><p>编辑/etc/yum.repos.d/erlang.repo，增加内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[erlang-solutions]</span><br><span class="line">name=Centos 7 - x86_64 - Erlang Solutions</span><br><span class="line">baseurl=https://packages.erlang-solutions.com/rpm/centos/7/x86_64</span><br><span class="line">gpgcheck=1</span><br><span class="line">gpgkey=https://packages.erlang-solutions.com/rpm/erlang_solutions.asc</span><br><span class="line">enabled=1</span><br></pre></td></tr></table></figure></blockquote></li></ul><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum update -y</span><br><span class="line">yum install -y esl-erlang</span><br><span class="line">rpm -ivh http://www.rabbitmq.com/releases/erlang/esl-erlang-compat-18.1-1.noarch.rpm</span><br></pre></td></tr></table></figure></blockquote><hr><h2 id="2-安装RabbitMQ"><a href="#2-安装RabbitMQ" class="headerlink" title="2.安装RabbitMQ"></a><strong>2.安装RabbitMQ</strong></h2><ul><li><p>安装socat</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y socat</span><br></pre></td></tr></table></figure></blockquote></li><li><p>安装rabbitmq</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -ivh http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.4/rabbitmq-server-3.6.4-1.noarch.rpm</span><br></pre></td></tr></table></figure></blockquote></li><li><p>启动</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl enable rabbitmq-server</span><br><span class="line">systemctl start rabbitmq-server</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr><h2 id="3-启用Web-Plugin"><a href="#3-启用Web-Plugin" class="headerlink" title="3.启用Web-Plugin"></a><strong>3.启用Web-Plugin</strong></h2><ul><li><p>RabbitMQ management</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rabbitmq-plugins enable rabbitmq_management</span><br><span class="line">systemctl restart rabbitmq-server</span><br></pre></td></tr></table></figure></blockquote></li><li><p>防火墙端口</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --permanent --zone=public --add-port=15672/tcp</span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure></blockquote></li><li><p>本地用户</p><blockquote><p>用户名guest，密码guest<br>无法远程登录</p></blockquote></li><li><p>远程用户</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rabbitmqctl add_user fanzi 123</span><br><span class="line">rabbitmqctl set_permissions -p &quot;/&quot; fanzi &quot;.*&quot; &quot;.*&quot; &quot;.*&quot;</span><br><span class="line">rabbitmqctl set_user_tags fanzi administrator</span><br></pre></td></tr></table></figure></blockquote></li></ul><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述esl-erlang、esl-erlang-compat、rabbitmq-server的安装。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="Erlang" scheme="http://my.fanzicai.com/tags/Erlang/"/>
+    
+      <category term="RabbitMQ" scheme="http://my.fanzicai.com/tags/RabbitMQ/"/>
+    
+      <category term="AMQP" scheme="http://my.fanzicai.com/tags/AMQP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>V5Max优化GPS设置</title>
+    <link href="http://my.fanzicai.com/Phone/20160729-V5Max%E4%BC%98%E5%8C%96GPS%E8%AE%BE%E7%BD%AE.html"/>
+    <id>http://my.fanzicai.com/Phone/20160729-V5Max优化GPS设置.html</id>
+    <published>2016-07-29T08:19:15.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>ZTE V5Max默认配置下搜星贼慢，故优化配置，主要两个文件gps.conf和apns-conf.xml。</p><a id="more"></a><h2 id="1-前提"><a href="#1-前提" class="headerlink" title="1. 前提"></a><strong>1. 前提</strong></h2><p>文件均在system/etc目录下，须root权限才能操作，常用RE管理器</p><blockquote><p>root推荐360一键root工具</p></blockquote><hr><h2 id="2-gps-conf"><a href="#2-gps-conf" class="headerlink" title="2. gps.conf"></a><strong>2. gps.conf</strong></h2><blockquote><p>文件修改后为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">XTRA_SERVER_1=http://xtra2.gpsonextra.net/xtra.bin</span><br><span class="line">XTRA_SERVER_2=http://xtra1.gpsonextra.net/xtra.bin</span><br><span class="line">XTRA_SERVER_3=http://xtra3.gpsonextra.net/xtra.bin</span><br><span class="line"></span><br><span class="line">ERR_ESTIMATE=0</span><br><span class="line"></span><br><span class="line">NTP_SERVER=0.cn.pool.ntp.org</span><br><span class="line">NTP_SERVER=1.cn.pool.ntp.org</span><br><span class="line">NTP_SERVER=2.cn.pool.ntp.org</span><br><span class="line">NTP_SERVER=3.cn.pool.ntp.org</span><br><span class="line">NTP_SERVER=cn.pool.ntp.org</span><br><span class="line"></span><br><span class="line">DEBUG_LEVEL = 3</span><br><span class="line"></span><br><span class="line">INTERMEDIATE_POS=0</span><br><span class="line"></span><br><span class="line">SUPL_VER=0x20000</span><br><span class="line"></span><br><span class="line">SUPL_ES=1</span><br><span class="line"></span><br><span class="line">CAPABILITIES=0x31</span><br><span class="line"></span><br><span class="line">SUPL_HOST=suplcn.sirf.com</span><br><span class="line">SUPL_HOST=221.176.0.55</span><br><span class="line">SUPL_HOST=supl.nokia.com</span><br><span class="line">SUPL_PORT=7275</span><br><span class="line"># SUPL_HOST=supl.google.com</span><br><span class="line"># SUPL_PORT=7276</span><br><span class="line"></span><br><span class="line">LPP_PROFILE = 0</span><br><span class="line"></span><br><span class="line">NMEA_PROVIDER=0</span><br><span class="line">SGLTE_TARGET=0</span><br><span class="line"></span><br><span class="line">A_GLONASS_POS_PROTOCOL_SELECT = 0</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="3-apns-conf-xml"><a href="#3-apns-conf-xml" class="headerlink" title="3. apns-conf.xml"></a><strong>3. apns-conf.xml</strong></h2><blockquote><p>将type=”default”改为type=”default,supl”</p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;ZTE V5Max默认配置下搜星贼慢，故优化配置，主要两个文件gps.conf和apns-conf.xml。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Phone" scheme="http://my.fanzicai.com/categories/Phone/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="V5Max" scheme="http://my.fanzicai.com/tags/V5Max/"/>
+    
+      <category term="ZTE" scheme="http://my.fanzicai.com/tags/ZTE/"/>
+    
+      <category term="Phone" scheme="http://my.fanzicai.com/tags/Phone/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS设置多IP的方法</title>
+    <link href="http://my.fanzicai.com/Program/20160729-CentOS%E8%AE%BE%E7%BD%AE%E5%A4%9AIP%E7%9A%84%E6%96%B9%E6%B3%95.html"/>
+    <id>http://my.fanzicai.com/Program/20160729-CentOS设置多IP的方法.html</id>
+    <published>2016-07-29T03:19:44.000Z</published>
+    <updated>2023-02-23T09:21:06.750Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文描述在CentOS7中单网卡配置多IP的情况，包括非连续IP和连续IP段。</p><a id="more"></a><blockquote><p>以网卡eno1为例<br>原配置文件为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-eno1</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="1-非连续IP"><a href="#1-非连续IP" class="headerlink" title="1. 非连续IP"></a><strong>1. 非连续IP</strong></h2><blockquote><p>新增配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-eno1:0</span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eno1:1</span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eno1:3</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>配置文件内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#/etc/sysconfig/network-scripts/ifcfg-eno1:0</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">DEVICE=eno1:0</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=192.168.1.10</span><br><span class="line">PREFIX=24</span><br><span class="line">GATEWAY=192.168.1.1</span><br><span class="line">DNS1=192.168.1.1</span><br></pre></td></tr></table></figure></blockquote><hr><h2 id="2-连续IP段"><a href="#2-连续IP段" class="headerlink" title="2. 连续IP段"></a><strong>2. 连续IP段</strong></h2><blockquote><p>新增配置文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/etc/sysconfig/network-scripts/ifcfg-eno1-range0</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>配置文件内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=static</span><br><span class="line">DEVICE=eno1</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR_START=192.168.1.20</span><br><span class="line">IPADDR_END=192.168.1.39</span><br><span class="line">PREFIX=24</span><br><span class="line">GATEWAY=192.168.1.1</span><br><span class="line">DNS1=192.168.1.1</span><br><span class="line">CLONENUM_START=3    #为起始编号，前面已用0、1、2，故此处为3</span><br></pre></td></tr></table></figure></p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文描述在CentOS7中单网卡配置多IP的情况，包括非连续IP和连续IP段。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Eclipse中配置Git和SSH</title>
+    <link href="http://my.fanzicai.com/Program/20160726-Eclipse%E4%B8%AD%E9%85%8D%E7%BD%AEGit%E5%92%8CSSH.html"/>
+    <id>http://my.fanzicai.com/Program/20160726-Eclipse中配置Git和SSH.html</id>
+    <published>2016-07-26T07:09:16.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>Eclipse中使用Git进行Team协同。</p><a id="more"></a><h2 id="1-Git-Plug-in"><a href="#1-Git-Plug-in" class="headerlink" title="1. Git Plug-in"></a><strong>1. Git Plug-in</strong></h2><blockquote><p>默认情况下，Eclipse已经安装了Git插件，一般为EGit或JGit。<br>直接使用即可。</p></blockquote><hr><h2 id="2-Git配置"><a href="#2-Git配置" class="headerlink" title="2. Git配置"></a><strong>2. Git配置</strong></h2><blockquote><p>系统环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME = /.gitconfig目录</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>Eclipse配置<br>Team - Git - Configuration<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">key     - user.name</span><br><span class="line">value  - fanzi</span><br><span class="line">key     - user.email</span><br><span class="line">value  - fanzicai@yahoo.com</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>Eclipse配置<br>General - Network Connections - SSH2</p><pre><code>SSH2 home  = /git目录/.ssh    # 一般为gitlab或github等的私钥存放地Key Management    #如有现成私钥，则导入，如无则创建，同时把公钥上传到git服务器</code></pre><p>使用时，采用ssh访问 <a href="mailto:git@gitlab.com" target="_blank" rel="noopener">git@gitlab.com</a>/***.git方式</p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Eclipse中使用Git进行Team协同。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Git" scheme="http://my.fanzicai.com/tags/Git/"/>
+    
+      <category term="Eclipse" scheme="http://my.fanzicai.com/tags/Eclipse/"/>
+    
+      <category term="SSH" scheme="http://my.fanzicai.com/tags/SSH/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Bind-chroot部署DNS服务器</title>
+    <link href="http://my.fanzicai.com/Program/20160720-Bind-chroot%E9%83%A8%E7%BD%B2DNS%E6%9C%8D%E5%8A%A1%E5%99%A8.html"/>
+    <id>http://my.fanzicai.com/Program/20160720-Bind-chroot部署DNS服务器.html</id>
+    <published>2016-07-20T05:49:06.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>CentOS 7部署DNS内网服务器，采用bind-chroot工具。</p><a id="more"></a><h2 id="1-安装工具"><a href="#1-安装工具" class="headerlink" title="1. 安装工具"></a><strong>1. 安装工具</strong></h2><ul><li>bind-utils</li><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install bind-utils</span><br></pre></td></tr></table></figure></li></ul><hr><h2 id="2-修改配置"><a href="#2-修改配置" class="headerlink" title="2. 修改配置"></a><strong>2. 修改配置</strong></h2><blockquote><p>涉及目录有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/var/named/chroot/etc/</span><br><span class="line">    named.conf</span><br><span class="line">    named.rfc1912.zones</span><br><span class="line">/var/named/chroot/var/named/</span><br><span class="line">    nid.com.zone</span><br><span class="line">    1.168.192.local</span><br></pre></td></tr></table></figure></p></blockquote><ul><li>named.conf<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -f /etc/named.conf /var/named/chroot/etc/</span><br></pre></td></tr></table></figure></li></ul><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">options &#123;</span><br><span class="line">        listen-on port 53 &#123; 192.168.1.183; &#125;;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line"></span><br><span class="line">        allow-query     &#123; any; &#125;;</span><br><span class="line"></span><br><span class="line">        recursion yes;</span><br><span class="line"></span><br><span class="line">        dnssec-enable no;</span><br><span class="line">        dnssec-validation no;</span><br><span class="line"></span><br><span class="line">        ...</span><br></pre></td></tr></table></figure></blockquote><ul><li><p>named.rfc1912.zones</p><blockquote><p>添加内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">zone &quot;nid.com&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;nid.com.zone&quot;;</span><br><span class="line">        allow-update &#123;none;&#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">zone &quot;1.168.192.in-addr.arpa&quot; IN &#123;</span><br><span class="line">        type master;</span><br><span class="line">        file &quot;1.168.192.local&quot;;</span><br><span class="line">        allow-update &#123;none;&#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></blockquote></li><li><p>nid.com.zone</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$TTL 86400</span><br><span class="line">@       IN SOA  nid.com. mail.nid.com. (</span><br><span class="line">                                        46      ; serial</span><br><span class="line">                                        43200   ; refresh</span><br><span class="line">                                        3600    ; retry</span><br><span class="line">                                        3600000 ; expire</span><br><span class="line">                                        2592000 )       ; minimum</span><br><span class="line">        IN      NS      www.nid.com.</span><br><span class="line">        IN      A       192.168.1.200</span><br><span class="line">www     IN      A       192.168.1.200</span><br><span class="line">gitlab  IN      A       192.168.1.10</span><br><span class="line">jenkins IN      A       192.168.1.80</span><br><span class="line">nginx   IN      A       192.168.1.200</span><br><span class="line">tomcat  IN      A       192.168.1.80</span><br></pre></td></tr></table></figure></blockquote></li><li><p>1.168.192.local</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">$TTL 86400</span><br><span class="line">@       IN SOA  nid.com. mail.nid.com. (</span><br><span class="line">                                        45      ; serial</span><br><span class="line">                                        28800   ; refresh</span><br><span class="line">                                        14400   ; retry</span><br><span class="line">                                        36000000        ; expire</span><br><span class="line">                                        86400 ) ; minimum</span><br><span class="line">        IN      NS      www.nid.com.</span><br><span class="line">200     IN      PTR     www.nid.com.</span><br><span class="line">10      IN      PTR     gitlab.nid.com</span><br><span class="line">80      IN      PTR     jenkins.nid.com</span><br><span class="line"></span><br><span class="line">www     IN      A       192.168.1.200</span><br></pre></td></tr></table></figure></blockquote></li><li><p>/etc/resolv.conf</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nameserver 192.168.1.183</span><br><span class="line">nameserver 192.168.1.1</span><br></pre></td></tr></table></figure></blockquote></li></ul><blockquote><p>其中，192.168.1.183为DNS服务器的IP</p></blockquote><hr><h2 id="3-启动DNS"><a href="#3-启动DNS" class="headerlink" title="3. 启动DNS"></a><strong>3. 启动DNS</strong></h2><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/usr/libexec/setup-named-chroot.sh /var/named/chroot on</span><br><span class="line">systemctl enable named-chroot</span><br><span class="line">systemctl start named-chroot</span><br></pre></td></tr></table></figure></blockquote><hr><h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4. 测试"></a><strong>4. 测试</strong></h2><blockquote><p>采用nslookup<br>server 查看DNS服务器列表<br><a href="http://www.nid.com" target="_blank" rel="noopener">www.nid.com</a> 查看该域名的ip</p></blockquote><hr>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;CentOS 7部署DNS内网服务器，采用bind-chroot工具。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="Bind" scheme="http://my.fanzicai.com/tags/Bind/"/>
+    
+      <category term="Chroot" scheme="http://my.fanzicai.com/tags/Chroot/"/>
+    
+      <category term="DNS" scheme="http://my.fanzicai.com/tags/DNS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>个人域名绑定GitHub Pages</title>
+    <link href="http://my.fanzicai.com/Program/20160613-%E4%B8%AA%E4%BA%BA%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9AGitHub-Pages.html"/>
+    <id>http://my.fanzicai.com/Program/20160613-个人域名绑定GitHub-Pages.html</id>
+    <published>2016-06-13T08:52:37.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://pages.github.com/" target="_blank" rel="noopener">GitHub Pages</a>提供了最多1GB的免费空间，适用于静态页面，如博客等。<br><a href="https://www.fanzicai.com" target="_blank" rel="noopener">凡尘 博客</a>亦即采用该方式，并且使用了hexo发布博客。</p><a id="more"></a><h2 id="1-解析设置"><a href="#1-解析设置" class="headerlink" title="1. 解析设置"></a><strong>1. 解析设置</strong></h2><blockquote><p>在域名提供商处，对域名进行解析<br>比如<a href="www.fanzicai.com">www.fanzicai.com</a><br>解析地址可为下列地址之一<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.30.252.153</span><br><span class="line">192.30.252.154</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="2-GitHub设置"><a href="#2-GitHub设置" class="headerlink" title="2. GitHub设置"></a><strong>2. GitHub设置</strong></h2><blockquote><p><a href="fanzicai.github.io">fanzicai.github.io</a>的repo中根目录增加文件CNAME<br>CNAME的内容为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">www.fanzicai.com</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>使用Hexo deploy时，会把服务端的CNAME冲掉</p></blockquote><hr><h2 id="3-Hexo"><a href="#3-Hexo" class="headerlink" title="3. Hexo"></a><strong>3. Hexo</strong></h2><blockquote><p>在source目录下，创建CNAME即可</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub Pages&lt;/a&gt;提供了最多1GB的免费空间，适用于静态页面，如博客等。&lt;br&gt;&lt;a href=&quot;https://www.fanzicai.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;凡尘 博客&lt;/a&gt;亦即采用该方式，并且使用了hexo发布博客。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="GitHub" scheme="http://my.fanzicai.com/tags/GitHub/"/>
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows下更改GitBash默认路径</title>
+    <link href="http://my.fanzicai.com/Program/20160613-Windows%E4%B8%8B%E6%9B%B4%E6%94%B9GitBash%E9%BB%98%E8%AE%A4%E8%B7%AF%E5%BE%84.html"/>
+    <id>http://my.fanzicai.com/Program/20160613-Windows下更改GitBash默认路径.html</id>
+    <published>2016-06-13T01:22:54.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>运行Git Bash后，控制台会进入默认路径（目录）。Git安装后，默认路径为用户目录。</p><a id="more"></a><h2 id="Git-Bash默认路径"><a href="#Git-Bash默认路径" class="headerlink" title="Git Bash默认路径"></a><strong>Git Bash默认路径</strong></h2><ul><li><p>方法一</p><blockquote><p>Git Bash快捷方式的属性中，有一项配置“起始位置”，改为所需目录即可<br>通常情况下，该方法无效，故采用方法二</p></blockquote></li><li><p>方法二</p><blockquote><p>Git安装目录下，如“D:\Program Files\Git\etc”，找到profile文件，增加以下内容</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HOME=&quot;所要设置的起始目录&quot;</span><br><span class="line">HOME=&quot;$(cd &quot;$HOME&quot; ; pwd)&quot;</span><br><span class="line">cd</span><br><span class="line">export PATH=&quot;$HOME/bin:$PATH&quot;</span><br></pre></td></tr></table></figure></blockquote></li></ul><p>本文使用的Git版本是2.8.2。 </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;运行Git Bash后，控制台会进入默认路径（目录）。Git安装后，默认路径为用户目录。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="Windows" scheme="http://my.fanzicai.com/tags/Windows/"/>
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Git" scheme="http://my.fanzicai.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>TortoiseGit连接Gitlab</title>
+    <link href="http://my.fanzicai.com/Program/20160608-TortoiseGit%E8%BF%9E%E6%8E%A5Gitlab.html"/>
+    <id>http://my.fanzicai.com/Program/20160608-TortoiseGit连接Gitlab.html</id>
+    <published>2016-06-08T08:03:36.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>docker gitlab部署完成后，准备采用git bash和TortoiseGit连接gitlab。<br><a id="more"></a></p><h2 id="Git-Bash连接"><a href="#Git-Bash连接" class="headerlink" title="Git Bash连接"></a><strong>Git Bash连接</strong></h2><ul><li>密钥生成<blockquote><p>git bash</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;fanzicai@yahoo.com&quot; path_to_key_~/.ssh</span><br></pre></td></tr></table></figure></blockquote></li></ul><blockquote><p>自动生成id_rsa和id_rsa.pub</p></blockquote><ul><li>密钥上传<blockquote><p>将id_rsa.pub的数据添加到gitlab的ssh key</p></blockquote></li></ul><h2 id="TortoiseGit连接"><a href="#TortoiseGit连接" class="headerlink" title="TortoiseGit连接"></a><strong>TortoiseGit连接</strong></h2><ul><li><p>格式转换</p><blockquote><p>采用TortoiseGit的工具PuTTYgen<br>1、先”Load”上文的id_rsa<br>2、再”Save private key”存成ppk格式</p></blockquote></li><li><p>PuTTY设置</p><blockquote><p>设置gitlab服务器的连接，并存储<br>在Connection-&gt;SSH-&gt;Auth中添加上文ppk文件</p></blockquote></li><li><p>Pageant设置</p><blockquote><p>启动Pageant，添加ppk文件的key</p></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;docker gitlab部署完成后，准备采用git bash和TortoiseGit连接gitlab。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="GitLab" scheme="http://my.fanzicai.com/tags/GitLab/"/>
+    
+      <category term="Git" scheme="http://my.fanzicai.com/tags/Git/"/>
+    
+      <category term="TortoiseGit" scheme="http://my.fanzicai.com/tags/TortoiseGit/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>git clone指定非22端口号</title>
+    <link href="http://my.fanzicai.com/Program/20160608-git-clone%E6%8C%87%E5%AE%9A%E9%9D%9E22%E7%AB%AF%E5%8F%A3%E5%8F%B7.html"/>
+    <id>http://my.fanzicai.com/Program/20160608-git-clone指定非22端口号.html</id>
+    <published>2016-06-08T01:32:17.000Z</published>
+    <updated>2023-02-23T09:21:06.747Z</updated>
+    
+    <content type="html"><![CDATA[<p>git clone项目时，采用ssh协议时，一般远端均是22端口。部署docker时，考虑端口映射成其他，如2222。<br><a id="more"></a></p><ul><li><p>22端口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone git@hostname:repos/test.git</span><br></pre></td></tr></table></figure></li><li><p>非22端口</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone ssh://git@hostname:2222/repos/test.git</span><br></pre></td></tr></table></figure></li><li><p>修改默认端口</p><blockquote><p>编辑~/.ssh/config</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Host ***</span><br><span class="line">    Hostname ***</span><br><span class="line">    User ***</span><br><span class="line">    Port 2222</span><br><span class="line">    IdentifyFile ~/.ssh/***</span><br></pre></td></tr></table></figure></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;git clone项目时，采用ssh协议时，一般远端均是22端口。部署docker时，考虑端口映射成其他，如2222。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="Git" scheme="http://my.fanzicai.com/tags/Git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CentOS7下设置时区方式</title>
+    <link href="http://my.fanzicai.com/Program/20160608-CentOS7%E4%B8%8B%E8%AE%BE%E7%BD%AE%E6%97%B6%E5%8C%BA%E6%96%B9%E5%BC%8F.html"/>
+    <id>http://my.fanzicai.com/Program/20160608-CentOS7下设置时区方式.html</id>
+    <published>2016-06-08T01:20:25.000Z</published>
+    <updated>2023-02-23T09:21:06.743Z</updated>
+    
+    <content type="html"><![CDATA[<p>时间的设置，通常采用date命令，很容易就能达到目的。最近在使用docker centos时，默认时区一般是美国，想要改变成北京时间。<br><a id="more"></a></p><ul><li><p>查看时区</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date -R</span><br></pre></td></tr></table></figure></li><li><p>修改时区</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp -f /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;时间的设置，通常采用date命令，很容易就能达到目的。最近在使用docker centos时，默认时区一般是美国，想要改变成北京时间。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="Docker" scheme="http://my.fanzicai.com/tags/Docker/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Dockerfile之fanzi/gitlab-cn</title>
+    <link href="http://my.fanzicai.com/Program/20160602-Dockerfile%E4%B9%8Bfanzi-gitlab-cn.html"/>
+    <id>http://my.fanzicai.com/Program/20160602-Dockerfile之fanzi-gitlab-cn.html</id>
+    <published>2016-06-02T01:02:37.000Z</published>
+    <updated>2023-02-23T09:37:48.966Z</updated>
+    
+    <content type="html"><![CDATA[<p>Dockerfile是创建docker image的一种常用方式。本文采用dockerfile创建<a href="https://hub.docker.com/r/fanzi/gitlab-cn/" target="_blank" rel="noopener">gitlab-cn image</a>。该image基于Centos Image 7创建，并与mysql image联合使用。<br><a id="more"></a></p><h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a><strong>1. 准备工作</strong></h2><p>可参考<a href="http://fanzicai.github.io/Program/2016/05/25/CentOS7%E4%B8%8A%E5%AE%89%E8%A3%85Docker%E5%8F%8AGitLab.html" target="_blank" rel="noopener">CentOS7上安装Docker及GitLab</a>一文，先行安装CentOS、Docker。</p><ul><li>Docker MySQL<br>Oracle官方已提供MySQL的<a href="https://hub.docker.com/r/mysql/mysql-server/" target="_blank" rel="noopener">Docker Image</a>。<blockquote><p>docker -v 权限</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcon -Rt svirt_sandbox_file_t /root/docker-mysql-data</span><br></pre></td></tr></table></figure></blockquote></li></ul><blockquote><p>创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --restart always --name mysql -e MYSQL_ROOT_PASSWORD=123 -v /root/docker-mysql-data:/var/lib/mysql -p 3306:3306 -p 33060:33060 -d mysql/mysql-server:5.7 --character-set-server=utf8 --collation-server=utf8_general_ci</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>进入mysql控制台<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it mysql /bin/bash</span><br><span class="line">mysql -uroot -p123</span><br></pre></td></tr></table></figure></p></blockquote><blockquote><p>创建git用户及database，本文git用户密码设置为git<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE USER &apos;git&apos;@&apos;%&apos; IDENTIFIED BY &apos;git&apos;;</span><br><span class="line">CREATE DATABASE IF NOT EXISTS `gitlabhq_production` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_unicode_ci`;</span><br><span class="line">GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, CREATE TEMPORARY TABLES, DROP, INDEX, ALTER, LOCK TABLES ON `gitlabhq_production`.* TO &apos;git&apos;@&apos;%&apos;;</span><br><span class="line">flush privileges;</span><br><span class="line">\q</span><br></pre></td></tr></table></figure></p></blockquote><hr><h2 id="2-gitlab-cn-Dockerfile"><a href="#2-gitlab-cn-Dockerfile" class="headerlink" title="2. gitlab-cn Dockerfile"></a><strong>2. gitlab-cn Dockerfile</strong></h2><p>以下为Dockfile的内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line">FROM centos:centos7</span><br><span class="line">MAINTAINER fanzi &quot;fanzicai@yahoo.com&quot;</span><br><span class="line"></span><br><span class="line">RUN yum -y install wget \</span><br><span class="line"> &amp;&amp; wget http://repo.mysql.com//mysql57-community-release-el7-8.noarch.rpm \</span><br><span class="line"> &amp;&amp; rpm -Uvh mysql57-community-release-el7-8.noarch.rpm \</span><br><span class="line"> &amp;&amp; yum -y update \</span><br><span class="line"> &amp;&amp; yum -y group install &quot;development tools&quot; \</span><br><span class="line"> &amp;&amp; yum -y install epel-release \</span><br><span class="line"> &amp;&amp; yum -y install sudo vim cmake mysql mysql-devel openssh-server go ruby redis nodejs nginx readline-devel gdbm-devel openssl-devel expat-devel sqlite-devel libyaml-devel libffi-devel libxml2-devel libxslt-devel libicu-devel python-devel xmlto logwatch perl-ExtUtils-CBuilder</span><br><span class="line"></span><br><span class="line">RUN adduser --system --shell /bin/bash --comment &apos;GitLab&apos; --create-home --home-dir /home/git/ git \</span><br><span class="line"> &amp;&amp; chmod -R go+rx /home/git</span><br><span class="line"></span><br><span class="line">WORKDIR /home/git</span><br><span class="line">RUN wget https://www.kernel.org/pub/software/scm/git/git-2.8.3.tar.gz \</span><br><span class="line"> &amp;&amp; wget https://cache.ruby-lang.org/pub/ruby/2.3/ruby-2.3.1.tar.gz \</span><br><span class="line"> &amp;&amp; wget https://storage.googleapis.com/golang/go1.5.3.linux-amd64.tar.gz \</span><br><span class="line"> &amp;&amp; wget  https://gitlab.com/larryli/gitlab/repository/archive.tar.gz?ref=v8.8.0.zh1 \</span><br><span class="line"> &amp;&amp; tar xvf git-2.8.3.tar.gz \</span><br><span class="line"> &amp;&amp; tar xvf ruby-2.3.1.tar.gz \</span><br><span class="line"> &amp;&amp; tar xvf go1.5.3.linux-amd64.tar.gz -C /usr/local/ \</span><br><span class="line"> &amp;&amp; tar xvf archive.tar.gz?ref=v8.8.0.zh1 \</span><br><span class="line"> &amp;&amp; mv gitlab-v8.8.0.zh1* gitlab \</span><br><span class="line"> &amp;&amp; ln -sf /usr/local/go/bin/&#123;go,godoc,gofmt&#125; /usr/bin/ \</span><br><span class="line"># Git install</span><br><span class="line"> &amp;&amp; cd git-2.8.3 \</span><br><span class="line"> &amp;&amp; ./configure --prefix=/usr \</span><br><span class="line"> &amp;&amp; make \</span><br><span class="line"> &amp;&amp; make install \</span><br><span class="line"> sudo -u git -H &quot;/usr/bin/git&quot; config --global core.autocrlf &quot;input&quot; \</span><br><span class="line"># Ruby update</span><br><span class="line"> &amp;&amp; cd ../ruby-2.3.1/ \</span><br><span class="line"> &amp;&amp; ./configure --prefix=/usr --disable-install-rdoc \</span><br><span class="line"> &amp;&amp; make \</span><br><span class="line"> &amp;&amp; make install \</span><br><span class="line"># Bundler</span><br><span class="line"> &amp;&amp; gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/ \</span><br><span class="line"> &amp;&amp; gem install bundler \</span><br><span class="line"> &amp;&amp; bundle config mirror.https://rubygems.org https://ruby.taobao.org \</span><br><span class="line"># Redis config &amp; start</span><br><span class="line"> &amp;&amp; echo &apos;unixsocket /var/run/redis/redis.sock&apos; &gt;&gt; /etc/redis.conf \</span><br><span class="line"> &amp;&amp; echo &apos;unixsocketperm 770&apos; &gt;&gt; /etc/redis.conf \</span><br><span class="line"> &amp;&amp; chown redis:redis /var/run/redis \</span><br><span class="line"> &amp;&amp; chmod 755 /var/run/redis \</span><br><span class="line"> &amp;&amp; usermod -aG redis git \</span><br><span class="line"> &amp;&amp; (redis-server /etc/redis.conf &amp;)</span><br><span class="line"></span><br><span class="line"># GitLab</span><br><span class="line">WORKDIR /home/git/gitlab/</span><br><span class="line">RUN cp config/gitlab.yml.example config/gitlab.yml \</span><br><span class="line"> &amp;&amp; cp config/secrets.yml.example config/secrets.yml \</span><br><span class="line"> &amp;&amp; chmod 0600 config/secrets.yml \</span><br><span class="line"> &amp;&amp; chown -R git log/ \</span><br><span class="line"> &amp;&amp; chown -R git tmp/ \</span><br><span class="line"> &amp;&amp; chmod -R u+rwX,go-w log/ \</span><br><span class="line"> &amp;&amp; chmod -R u+rwX tmp/ \</span><br><span class="line"> &amp;&amp; chmod -R u+rwX tmp/pids/ \</span><br><span class="line"> &amp;&amp; chmod -R u+rwX tmp/sockets/ \</span><br><span class="line"> &amp;&amp; mkdir public/uploads/ \</span><br><span class="line"> &amp;&amp; chmod 0700 public/uploads \</span><br><span class="line"> &amp;&amp; chmod -R u+rwX builds/ \</span><br><span class="line">  &amp;&amp; chmod -R u+rwX shared/artifacts/ \</span><br><span class="line"> &amp;&amp; cp config/unicorn.rb.example config/unicorn.rb \</span><br><span class="line"> &amp;&amp; cp config/initializers/rack_attack.rb.example config/initializers/rack_attack.rb \</span><br><span class="line"> &amp;&amp; git config --global core.autocrlf input \</span><br><span class="line"> &amp;&amp; git config --global gc.auto 0 \</span><br><span class="line"> &amp;&amp; cp config/resque.yml.example config/resque.yml \</span><br><span class="line"> &amp;&amp; cp config/database.yml.mysql config/database.yml \</span><br><span class="line"> &amp;&amp; sed -i &apos;s/&quot;secure password&quot;/git/&apos; config/database.yml \</span><br><span class="line"> &amp;&amp; sed -i &apos;s/# host: localhost/host: mysql/&apos; config/database.yml \</span><br><span class="line"> &amp;&amp; sed -i &apos;s/rubygems.org/ruby.taobao.org/&apos; Gemfile \</span><br><span class="line"> &amp;&amp; bundle install --deployment --without development test postgres aws \</span><br><span class="line"> &amp;&amp; bundle exec rake gitlab:shell:install REDIS_URL=unix:/var/run/redis/redis.sock RAILS_ENV=production \</span><br><span class="line"> &amp;&amp; chown -R git:git /home/git/repositories/ \</span><br><span class="line"> &amp;&amp; chmod -R ug+rwX,o-rwx /home/git/repositories/ \</span><br><span class="line"> &amp;&amp; chmod -R ug-s /home/git/repositories/ \</span><br><span class="line"> &amp;&amp; find /home/git/repositories/ -type d -print0 | xargs -0 chmod g+s \</span><br><span class="line"> &amp;&amp; chmod 700 /home/git/gitlab/public/uploads \</span><br><span class="line"> &amp;&amp; chown -R git:git config/ log/ \</span><br><span class="line"># GitLab rc.file</span><br><span class="line"> &amp;&amp; cp lib/support/init.d/gitlab /etc/init.d/gitlab</span><br><span class="line"></span><br><span class="line"># Nginx config</span><br><span class="line">WORKDIR /home/git/gitlab/</span><br><span class="line">RUN mkdir /etc/nginx/sites-available \</span><br><span class="line"> &amp;&amp; mkdir /etc/nginx/sites-enabled \</span><br><span class="line"> &amp;&amp; cp lib/support/nginx/gitlab /etc/nginx/sites-available/gitlab \</span><br><span class="line"> &amp;&amp; ln -s /etc/nginx/sites-available/gitlab /etc/nginx/sites-enabled/gitlab \</span><br><span class="line"> &amp;&amp; sed -i &apos;20a\  server 127.0.0.1:8080;&apos; /etc/nginx/sites-available/gitlab \</span><br><span class="line"> &amp;&amp; sed -i &apos;35,54d&apos; /etc/nginx/nginx.conf \</span><br><span class="line"> &amp;&amp; sed -i &apos;33a\    include /etc/nginx/sites-enabled/*;&apos; /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line">WORKDIR /home/git</span><br><span class="line"># Gitlab-Workhorse</span><br><span class="line">RUN git clone https://gitlab.com/gitlab-org/gitlab-workhorse.git \</span><br><span class="line"> &amp;&amp; cd gitlab-workhorse/ \</span><br><span class="line"> &amp;&amp; git checkout v0.7.2 \</span><br><span class="line"> &amp;&amp; make \</span><br><span class="line"> &amp;&amp; sshd-keygen</span><br><span class="line"></span><br><span class="line">EXPOSE 80 22</span><br><span class="line"></span><br><span class="line">VOLUME [&quot;/tmp/gitlab-cn&quot;]</span><br><span class="line"></span><br><span class="line">ADD ./gitlab-init.sh /home/git/gitlab-init.sh</span><br><span class="line">ADD ./gitlab-run.sh /home/git/gitlab-run.sh</span><br><span class="line"></span><br><span class="line">RUN chmod +x /home/git/gitlab-init.sh</span><br><span class="line">RUN chmod +x /home/git/gitlab-run.sh</span><br><span class="line"></span><br><span class="line">ENTRYPOINT [&quot;/home/git/gitlab-run.sh&quot;]</span><br></pre></td></tr></table></figure></p><p>其中，gitlab-init.sh脚本内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">cd /home/git/gitlab</span><br><span class="line">bundle exec rake gitlab:setup RAILS_ENV=production force=yes</span><br><span class="line">bundle exec rake assets:precompile RAILS_ENV=production</span><br><span class="line">chown -R git:git /home/git/</span><br><span class="line">sudo -u git -H &quot;/usr/bin/git&quot; config --global core.autocrlf &quot;input&quot;</span><br></pre></td></tr></table></figure></p><p>gitlab-run.sh脚本内容如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">#gitlab start</span><br><span class="line">/etc/init.d/gitlab start &amp;</span><br><span class="line"></span><br><span class="line">#nginx start</span><br><span class="line">nginx &amp;</span><br><span class="line"></span><br><span class="line">#sshd start</span><br><span class="line">/usr/sbin/sshd</span><br><span class="line"></span><br><span class="line">#redis start</span><br><span class="line">sudo -u redis -H redis-server /etc/redis.conf</span><br></pre></td></tr></table></figure></p><hr><h2 id="3-Image-Build"><a href="#3-Image-Build" class="headerlink" title="3. Image Build"></a><strong>3. Image Build</strong></h2><p>本Image已上传<a href="https://hub.docker.com/r/fanzi/gitlab-cn/" target="_blank" rel="noopener">https://hub.docker.com/r/fanzi/gitlab-cn/</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build --rm=true -t fanzi/gitlab-cn .</span><br></pre></td></tr></table></figure></p><hr><h2 id="4-Image-USE"><a href="#4-Image-USE" class="headerlink" title="4. Image USE"></a><strong>4. Image USE</strong></h2><ul><li><p>docker -v 权限</p><blockquote><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chcon -Rt svirt_sandbox_file_t /root/docker-gitlab-bak/backups</span><br></pre></td></tr></table></figure></blockquote></li><li><p>创建容器</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it --detach --restart always  -v /root/docker-gitlab-bak/backups:/home/git/gitlab/tmp/backups --link mysql:mysql -p 80:80 -p 22:22 --name gitlab fanzi/gitlab-cn</span><br></pre></td></tr></table></figure></li><li><p>初始化数据库</p><blockquote><p>确保mysql容器运行，只在创建容器后运行一次</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it gitlab /bin/bash -c /home/git/gitlab-init.sh</span><br></pre></td></tr></table></figure></blockquote></li><li><p>修改域名</p><blockquote><p>/home/git/gitlab/config/gitlab.yml</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">url: 192.168.1.*</span><br></pre></td></tr></table></figure></blockquote></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Dockerfile是创建docker image的一种常用方式。本文采用dockerfile创建&lt;a href=&quot;https://hub.docker.com/r/fanzi/gitlab-cn/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;gitlab-cn image&lt;/a&gt;。该image基于Centos Image 7创建，并与mysql image联合使用。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Program" scheme="http://my.fanzicai.com/categories/Program/"/>
+    
+    
+      <category term="MySQL" scheme="http://my.fanzicai.com/tags/MySQL/"/>
+    
+      <category term="2016" scheme="http://my.fanzicai.com/tags/2016/"/>
+    
+      <category term="CentOS" scheme="http://my.fanzicai.com/tags/CentOS/"/>
+    
+      <category term="GitLab" scheme="http://my.fanzicai.com/tags/GitLab/"/>
+    
+      <category term="Docker" scheme="http://my.fanzicai.com/tags/Docker/"/>
+    
+  </entry>
+  
+</feed>
